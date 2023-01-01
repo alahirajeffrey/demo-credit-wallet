@@ -1,19 +1,13 @@
 import { Knex } from 'knex';
-import * as dotenv from 'dotenv';
 
-dotenv.config();
-
-export const config: { [key: string]: Knex.Config } = {
+const config: { [key: string]: Knex.Config } = {
   development: {
     client: 'mysql',
     connection: {
-      host: process.env.DEV_DB_HOST,
-      user: process.env.DEV_DB_USER,
-      password: process.env.DEV_DB_PASSWORD,
-      database: process.env.DEV_DB_DATABASE,
-    },
-    migrations: {
-      directory: __dirname + '/src/database',
+      host: process.env.DEV_DB_HOST || '127.0.0.1',
+      user: process.env.DEV_DB_USER || 'root',
+      password: process.env.DEV_DB_PASSWORD || '102296',
+      database: process.env.DEV_DB_DATABASE || 'demo-credit-wallet',
     },
     debug: true,
   },
@@ -32,9 +26,8 @@ export const config: { [key: string]: Knex.Config } = {
     },
     migrations: {
       tableName: 'knex_migrations',
-      directory: __dirname + '/src/database',
     },
   },
 };
 
-// export default config;
+module.exports = config;
