@@ -13,18 +13,18 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  async registerUser(@Body() dto: RegisterUserDto) {
+  registerUser(@Body() dto: RegisterUserDto) {
     return this.authService.registerUser(dto);
   }
 
   @Post('login')
-  async login(@Body() dto: LoginDto) {
+  login(@Body() dto: LoginDto) {
     return this.authService.login(dto);
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Patch('change-password')
-  async changePassword(@Body() dto: PasswordChangeDto) {
-    return await this.authService.changePassword(dto);
+  changePassword(@Body() dto: PasswordChangeDto) {
+    return this.authService.changePassword(dto);
   }
 }
