@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { KnexModule } from 'nest-knexjs';
 import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
+import { AccountModule } from './account/account.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
       },
     }),
     AuthModule,
+    AccountModule,
   ],
   controllers: [AppController],
   providers: [AppService],
