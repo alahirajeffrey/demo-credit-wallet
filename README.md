@@ -15,6 +15,21 @@
 - Type `npm run start:prod` to start server in production mode.
 - Open your broswer and type the url `http://localhost:3000/api-doc/` to navigate to the swagger documentation of the api
 
-## Features
+## User Workflow
 
-- User authentication
+- User creates an account
+- User then logs into his account
+- User can then fund his/her account with the desired amount
+- User can also transfer funds to other accounts as well as withdraw funds from his/her account.
+
+## Database Design
+
+## Link to Deployed app
+
+### Developers
+
+[Alahira Jeffrey](https://github.com/alahirajeffrey)
+
+## License
+
+Nest is [MIT licensed](LICENSE)
