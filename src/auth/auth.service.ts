@@ -38,7 +38,11 @@ export class AuthService {
 
   async checkUserExists(email: string) {
     // check if user with email already exists
-    return await this.knex.table('users').where('email', email);
+    try {
+      return await this.knex.table('users').where('email', email);
+    } catch (error) {
+      throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
   }
 
   async registerUser(dto: RegisterUserDto): Promise<UserInterface> {
