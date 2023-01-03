@@ -11,6 +11,8 @@ async function bootstrap() {
     }),
   );
 
+  app.setGlobalPrefix('api/v1');
+
   const config = new DocumentBuilder()
     .setTitle('Demo Credit Wallet')
     .setDescription('The Demo credit wallet api')
