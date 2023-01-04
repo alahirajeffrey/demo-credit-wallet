@@ -13,7 +13,7 @@ export class AccountService {
       const accountExists = await this.knex
         .table('accounts')
         .where('userEmail', dto.userEmail);
-      if (accountExists) {
+      if (accountExists.length > 0) {
         throw new HttpException('account already exists', HttpStatus.FORBIDDEN);
       }
 
@@ -21,7 +21,7 @@ export class AccountService {
         userEmail: dto.userEmail,
       });
 
-      return { message: 'Wallet created' };
+      return { message: 'account created' };
     } catch (error) {
       throw new HttpException(error.message, HttpStatus.INTERNAL_SERVER_ERROR);
     }
