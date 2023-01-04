@@ -27,8 +27,10 @@ export class TransactionsService {
         dto.accountEmail,
       );
       const currentBalance = accountDetails[0].balance;
+
       //add amount to balance
       const newBalance = currentBalance + dto.amount;
+
       //update amount in accounts
       await this.knex
         .table('accounts')
@@ -77,8 +79,10 @@ export class TransactionsService {
       if (dto.amount > accountBalance) {
         throw new HttpException('insufficient balance', HttpStatus.FORBIDDEN);
       }
+
       //deduct amount from account balances
       const balanceAfterWithdrawal = accountBalance - dto.amount;
+
       //update account
       await this.knex
         .table('accounts')
@@ -128,8 +132,6 @@ export class TransactionsService {
       //update reciever's account
       const recieverAccountBalanceAfterTransfer =
         recieverExists[0].balance + dto.amount;
-      console.log(recieverExists);
-      console.log(recieverAccountBalanceAfterTransfer);
 
       await this.knex
         .table('accounts')
