@@ -1,5 +1,5 @@
 import { Controller, Post } from '@nestjs/common';
-import { Body, Patch, UseGuards } from '@nestjs/common/decorators';
+import { Body, HttpCode, Patch, UseGuards } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
@@ -22,6 +22,7 @@ export class AuthController {
     return this.authService.login(dto);
   }
 
+  @HttpCode(204)
   @UseGuards(AuthGuard('jwt'))
   @Patch('change-password')
   changePassword(@Body() dto: PasswordChangeDto) {
