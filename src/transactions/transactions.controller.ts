@@ -1,4 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Get, Param } from '@nestjs/common/decorators';
 import { AuthGuard } from '@nestjs/passport';
 import { ApiTags } from '@nestjs/swagger';
 import { FundAccountDto } from './dto/fund-account.dto';
@@ -15,6 +16,12 @@ export class TransactionsController {
   @Post('fund-account')
   fundAccount(@Body() dto: FundAccountDto) {
     return this.transactionsService.fundAccount(dto);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('view-transactions/:email')
+  getUserTransactions(@Param('email') email: string) {
+    return this.transactionsService.getUserTransactions(email);
   }
 
   @UseGuards(AuthGuard('jwt'))
