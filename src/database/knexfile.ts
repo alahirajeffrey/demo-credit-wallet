@@ -1,6 +1,6 @@
 import { Knex } from 'knex';
 
-export const config: { [key: string]: Knex.Config } = {
+const config: { [key: string]: Knex.Config } = {
   development: {
     client: 'mysql',
     connection: {
@@ -14,12 +14,7 @@ export const config: { [key: string]: Knex.Config } = {
 
   production: {
     client: 'mysql',
-    connection: {
-      host: process.env.DB_HOST,
-      database: process.env.DB_HOST,
-      user: process.env.DB_USER,
-      password: process.env.DB_PASSWORD,
-    },
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10,
@@ -30,4 +25,4 @@ export const config: { [key: string]: Knex.Config } = {
   },
 };
 
-// module.exports = config;
+module.exports = config;
