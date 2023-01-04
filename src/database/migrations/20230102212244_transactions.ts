@@ -4,7 +4,7 @@ export async function up(knex: Knex): Promise<void> {
   return knex.schema.createTable('transactions', (table) => {
     table.increments('id').primary(),
       table
-        .enum('transactionType', ['transfer', 'withdrawal'])
+        .enum('transactionType', ['transfer', 'withdrawal', 'funding'])
         .defaultTo('withdrawal'),
       table.float('amount'),
       table.string('recieverEmail'),
