@@ -3,6 +3,7 @@ import { Knex } from 'knex';
 import { InjectModel } from 'nest-knexjs';
 import { AccountService } from 'src/account/account.service';
 import { TransactionTypeEnum } from 'src/enums/transaction-type.enum';
+import { SuccessMessage } from 'src/interfaces/success-message.interface';
 import { FundAccountDto } from './dto/fund-account.dto';
 import { TransferFundsDto } from './dto/transfer-funds.dto';
 import { WithdrawFundsDto } from './dto/withdraw-funds.dto';
@@ -14,7 +15,12 @@ export class TransactionsService {
     private readonly accountService: AccountService,
   ) {}
 
-  async fundAccount(dto: FundAccountDto) {
+  /**
+   * function to fund a user's account
+   * @param dto : fund account dto
+   * @returns : a success message
+   */
+  async fundAccount(dto: FundAccountDto): Promise<SuccessMessage> {
     try {
       //get current balance
       const accountDetails = await this.accountService.getAccountDetails(
@@ -43,6 +49,11 @@ export class TransactionsService {
     }
   }
 
+  /**
+   *  function that returns a user's transactions
+   * @param email : string
+   * @returns : user's transactions
+   */
   async getUserTransactions(email: string) {
     try {
       return await this.knex.table('transactions').where('accountEmail', email);
@@ -51,7 +62,12 @@ export class TransactionsService {
     }
   }
 
-  async withdrawFunds(dto: WithdrawFundsDto) {
+  /**
+   * function to withdraw funds from a user's account
+   * @param dto : withdraw funds dto
+   * @returns : a success message
+   */
+  async withdrawFunds(dto: WithdrawFundsDto): Promise<SuccessMessage> {
     try {
       //check if user has enough balance for the transaction
       const accountDetails = await this.accountService.getAccountDetails(
@@ -82,7 +98,12 @@ export class TransactionsService {
     }
   }
 
-  async tranferFunds(dto: TransferFundsDto) {
+  /**
+   * function to transfer funds from one user to another
+   * @param dto : transfer funds dto
+   * @returns : a success message
+   */
+  async tranferFunds(dto: TransferFundsDto): Promise<SuccessMessage> {
     try {
       //check if user has enough balance to transfer
       const senderAccountDetails = await this.accountService.getAccountDetails(
@@ -118,8 +139,6 @@ export class TransactionsService {
       //update sender's account
       const senderAccountBalanceAfterTransfer =
         senderAccountBalance - dto.amount;
-
-      // console.log(senderAccountBalance);
 
       await this.knex
         .table('accounts')
