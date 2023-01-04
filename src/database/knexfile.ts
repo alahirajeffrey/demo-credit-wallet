@@ -14,7 +14,13 @@ const config: { [key: string]: Knex.Config } = {
 
   production: {
     client: 'mysql',
-    connection: process.env.DATABASE_URL,
+    connection: {
+      host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASWWORD,
+      database: process.env.DB_DATABASE,
+      port: Number(process.env.PORT),
+    },
     pool: {
       min: 2,
       max: 10,
