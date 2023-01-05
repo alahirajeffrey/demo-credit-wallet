@@ -9,6 +9,7 @@ import { UserInterface } from 'src/interfaces/user.interface';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { AccessTokenInterface } from 'src/interfaces/access-token.interface';
+import { SuccessMessage } from 'src/interfaces/success-message.interface';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,12 @@ export class AuthService {
     private readonly jwt: JwtService,
   ) {}
 
-  // function to create access tokens when user logs in
+  /**
+   * function to generate acess token for a user
+   * @param userId : number
+   * @param email : string
+   * @returns : an access token
+   */
   async signToken(
     userId: string,
     email: string,
@@ -36,6 +42,11 @@ export class AuthService {
     return { accessToken: token };
   }
 
+  /**
+   * function to check if a user exists
+   * @param email : string
+   * @returns a user if it exists or an empty array
+   */
   async checkUserExists(email: string) {
     // check if user with email already exists
     try {
@@ -45,6 +56,11 @@ export class AuthService {
     }
   }
 
+  /**
+   * function to register a user
+   * @param dto : register user dto
+   * @returns a user's details
+   */
   async registerUser(dto: RegisterUserDto): Promise<UserInterface> {
     try {
       // check if user with email already exists
@@ -70,10 +86,16 @@ export class AuthService {
     }
   }
 
+  /**
+   * function to login a user
+   * @param dto : login user dto
+   * @returns an access token
+   */
   async login(dto: LoginDto): Promise<AccessTokenInterface> {
     try {
       // check if user with email already exists
       const userExists = await this.checkUserExists(dto.email);
+
       if (userExists.length == 0) {
         throw new HttpException('user does not exist', HttpStatus.FORBIDDEN);
       }
@@ -94,7 +116,12 @@ export class AuthService {
     }
   }
 
-  async changePassword(dto: PasswordChangeDto): Promise<Object> {
+  /**
+   * function to change a user's password
+   * @param dto : change password dto
+   * @returns : a success message
+   */
+  async changePassword(dto: PasswordChangeDto): Promise<SuccessMessage> {
     try {
       // get user details
       const userExists = await this.checkUserExists(dto.email);
