@@ -1,3 +1,7 @@
+## Description
+
+Demo Credit is a mobile lending app with account or wallet functionality. This enables borrowers to receive the loans they have been granted and also send the money for repayments.
+
 ## Requirements
 
 - [Nodejs](https://nodejs.org/en/) is a JavaScript runtime built on Chrome's V8 JavaScript engine.
@@ -15,6 +19,8 @@
 - Type `npm run start:prod` to start server in production mode.
 - Open your broswer and type the url `http://localhost:3000/api-doc/` to navigate to the swagger documentation of the api
 
+## API En dpoints
+
 ## User Workflow
 
 - User creates an account
@@ -23,6 +29,8 @@
 - User can also transfer funds to other accounts as well as withdraw funds from his/her account.
 
 ## Database Design
+
+![alt text](assets/demo-credit-wallet.png)
 
 ## Link to Deployed app
 
